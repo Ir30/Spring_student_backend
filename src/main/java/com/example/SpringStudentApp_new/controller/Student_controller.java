@@ -38,4 +38,16 @@ public class Student_controller {
         return (List<StudentModel>) dao.searchStudent(s.getAdm().toString());
     }
 
+
+    @CrossOrigin(origins = "*")
+    @PostMapping("/delete")
+    public HashMap<String,String> deleteStudent(@RequestBody StudentModel s){
+
+        dao.deleteStudent(s.getId());
+        HashMap<String,String> res=new HashMap<>();
+        res.put("status","success");
+        return res;
+    }
+
+
 }
