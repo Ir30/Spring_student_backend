@@ -4,12 +4,10 @@ package com.example.SpringStudentApp_new.controller;
 import com.example.SpringStudentApp_new.Dao.StudentDao;
 import com.example.SpringStudentApp_new.Model.StudentModel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 
 @RestController
 public class Student_controller {
@@ -25,6 +23,19 @@ public class Student_controller {
         HashMap<String,String> res =new HashMap<>();
         res.put("status","succes");
         return res;
+    }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping("/view")
+    public List<StudentModel> viewStudents(){
+        return (List<StudentModel>)dao.findAll();
+    }
+
+    @CrossOrigin(origins = "*")
+    @PostMapping(path = "/search",consumes = "application/json",produces = "application/json")
+    public List<StudentModel> searchStudent(@RequestBody StudentModel s){
+
+        return (List<StudentModel>) dao.searchStudent(s.getAdm().toString());
     }
 
 }
